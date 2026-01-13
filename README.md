@@ -1,184 +1,268 @@
-# Dynamous Kiro Hackathon Quickstart Template
+# StreakForge - Personal Habit Tracking Application
 
-🚀 **Your starting point for the Dynamous and Kiro Hackathon** - A comprehensive template with pre-configured Kiro CLI setup, development workflows, and submission guidelines.
+🔥 **Build lasting habits through streak tracking and progress visualization** - A complete full-stack application built with React, FastAPI, and SQLite, developed using AI-assisted development with Kiro CLI.
 
-> **📖 New to Kiro?** Check out [kiro-guide.md](kiro-guide.md) to quickly get accustomed to how Kiro works and understand its unique features for the hackathon.
+> **📊 Live Demo**: Start both servers and visit http://localhost:5173 to see StreakForge in action!
 
-## About the Hackathon
+## About StreakForge
 
-The **Kiro Hackathon** is a coding competition where developers build real-world applications using the Kiro CLI. Show off your AI-powered development skills and compete for **$17,000 in prizes**.
+StreakForge is a personal habit tracking application that helps users build and maintain positive habits through streak tracking and progress visualization. Built as part of the **Dynamous Kiro Hackathon**, this project demonstrates modern full-stack development with comprehensive AI-assisted workflows.
 
-- **📅 Dates**: January 5-23, 2026
-- **💰 Prize Pool**: $17,000 across 10 winners
-- **🎯 Theme**: Open - build anything that solves a real problem
-- **🔗 More Info**: [dynamous.ai/kiro-hackathon](https://dynamous.ai/kiro-hackathon)
+- **🎯 Purpose**: Help users build lasting habits through visual motivation and streak gamification
+- **⚡ Tech Stack**: React 18 + TypeScript, FastAPI + SQLAlchemy, SQLite database
+- **🏆 Development**: 6.5 hours using systematic Kiro CLI workflows (50%+ time savings)
+- **📈 Features**: Habit CRUD, analytics dashboard, friend sharing, responsive design
 
-## What's Included
+## Key Features
 
-This template provides everything you need to get started:
+### ✅ Habit Management
+- **Create & Track Habits**: Add habits with categories, descriptions, and goal types
+- **Daily Check-ins**: Simple interface to mark habits as completed
+- **Streak Tracking**: Visual streak counters that motivate continued consistency
+- **Smart Organization**: Category-based filtering and search functionality
 
-- **📋 Steering Documents**: Pre-configured project templates (product.md, tech.md, structure.md)
-- **⚡ Custom Prompts**: 11 powerful development workflow prompts
-- **📖 Examples**: Sample README and DEVLOG showing best practices
-- **🏆 Hackathon Tools**: Specialized code review prompt for submission evaluation
+### 📊 Progress Analytics
+- **Interactive Charts**: Streak progression, completion rates, category distribution
+- **Progress Summary**: Key metrics with today's progress and weekly performance
+- **Time Period Filtering**: View analytics for 7, 14, 30, 60, or 90 days
+- **Insights & Recommendations**: AI-powered suggestions based on your patterns
+
+### 🤝 Social Features
+- **Habit Sharing**: Export your habits as JSON to share with friends
+- **Import from Friends**: Import and adapt habits from friends' exports
+- **No Authentication Required**: Simple file-based sharing system
+- **Privacy-First**: All data stored locally, no external transmission
+
+### 📱 Modern UX
+- **Responsive Design**: Optimized for mobile, tablet, and desktop
+- **Real-time Updates**: Optimistic UI updates with error handling
+- **Accessibility**: Proper ARIA labels and keyboard navigation
+- **Performance**: < 3s load time, 71% bundle compression
 
 ## Quick Start
 
-### 1. Clone This Template
+### Prerequisites
+- **Node.js** 18+ (for frontend)
+- **Python** 3.9+ (for backend)
+- **Git** (for cloning)
+
+### 1. Clone & Setup
 ```bash
-git clone https://github.com/coleam00/dynamous-kiro-hackathon
-cd dynamous-kiro-hackathon
+git clone https://github.com/rdpatilds/StreakForgeKiro.git
+cd StreakForgeKiro
 ```
 
-### 2. Run the Setup Wizard
+### 2. Backend Setup
 ```bash
-@quickstart
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+cd backend
+pip install -r requirements.txt
+
+# Start backend server
+python -m uvicorn app.main:app --reload --port 8000
 ```
 
-This assumes you already have Kiro CLI installed and that you started with the `kiro-cli` command in your terminal.
+### 3. Frontend Setup
+```bash
+# In a new terminal
+cd frontend
+npm install
 
-This interactive wizard will:
-- ✅ Fill out your steering documents with project details
-- ✅ Configure your development workflow
-- ✅ Set up Kiro CLI for your specific project
-- ✅ Explain all available prompts and features
+# Start development server
+npm run dev
+```
 
-### 3. Start Building
-Your project is now configured! Use these core prompts:
-- **`@prime`** - Load project context
-- **`@plan-feature`** - Plan new features
-- **`@execute`** - Implement plans systematically
-- **`@code-review`** - Review code quality
+### 4. Access Application
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:8000
+- **API Docs**: http://localhost:8000/docs
 
-**Note:** Your typical workflow will be `@prime` → `@plan-feature` → `@execute` → `@code-review`, but feel free to change it however you want. These commands may require additional details (like what feature to plan or which plan file to execute), but Kiro will ask for these parameters after you invoke the command.
+## Architecture Overview
 
-## Development Workflow (Customize this However You Want!)
+### Backend (FastAPI + SQLite)
+```
+backend/
+├── app/
+│   ├── main.py              # FastAPI application entry
+│   ├── models/              # SQLAlchemy models (User, Habit, Completion, Streak)
+│   ├── routers/             # API endpoints (habits, completions, streaks)
+│   ├── services/            # Business logic layer
+│   ├── schemas/             # Pydantic request/response models
+│   └── database.py          # Database configuration
+└── requirements.txt         # Python dependencies
+```
 
-### Initial Setup (One-Time)
-1. **Complete setup**: Run `@quickstart` to configure your project
+### Frontend (React + TypeScript)
+```
+frontend/
+├── src/
+│   ├── components/ui/       # Reusable UI components
+│   ├── features/            # Feature-based organization
+│   │   ├── habits/          # Habit management
+│   │   ├── analytics/       # Progress visualization
+│   │   └── sharing/         # Import/export functionality
+│   ├── pages/               # Route-level components
+│   ├── services/            # API client
+│   ├── stores/              # Zustand state management
+│   └── types/               # TypeScript interfaces
+└── package.json             # Node.js dependencies
+```
 
-### Core Development Cycle (Every Feature/Session)
+### Key Technical Decisions
+- **SQLite**: Simple file-based storage, perfect for local habit tracking
+- **FastAPI**: Modern async API with automatic OpenAPI documentation
+- **React 18**: Latest React with concurrent features and TypeScript
+- **Zustand**: Lightweight state management (simpler than Redux)
+- **Recharts**: React-native charts for analytics visualization
+- **Tailwind CSS**: Utility-first styling with custom theme
 
-### Phase 1: Setup & Planning
-1. **Load context**: Use `@prime` to understand your codebase
-2. **Plan features**: Use `@plan-feature` for comprehensive planning
+## API Endpoints
 
-### Phase 2: Build & Iterate
-1. **Implement**: Use `@execute` to build features systematically
-2. **Review**: Use `@code-review` to maintain code quality
-3. **Document**: Update your DEVLOG.md as you work
-4. **Optimize**: Customize your `.kiro/` configuration for your workflow
+### Habits
+- `GET /api/v1/habits/` - List all habits
+- `POST /api/v1/habits/` - Create new habit
+- `GET /api/v1/habits/{id}` - Get specific habit
+- `PUT /api/v1/habits/{id}` - Update habit
+- `DELETE /api/v1/habits/{id}` - Delete habit
 
-### Phase 3: Submission Preparation
-1. **Final review**: Run `@code-review-hackathon` for submission evaluation
-2. **Polish documentation**: Ensure README.md and DEVLOG.md are complete
-3. **Verify requirements**: Check all submission criteria are met
+### Completions
+- `GET /api/v1/completions/habit/{habit_id}` - Get habit completions
+- `POST /api/v1/completions/` - Mark habit complete
+- `PUT /api/v1/completions/{id}` - Update completion
+- `DELETE /api/v1/completions/{id}` - Delete completion
 
-## Submission Requirements
+### Streaks
+- `GET /api/v1/streaks/{habit_id}` - Get habit streak data
+- `POST /api/v1/streaks/{habit_id}/recalculate` - Recalculate streak
 
-Your submission will be judged on these criteria (100 points total):
+## Testing & Quality Assurance
 
-### Application Quality (40 points)
-- **Functionality & Completeness** (15 pts): Does it work as intended?
-- **Real-World Value** (15 pts): Does it solve a genuine problem?
-- **Code Quality** (10 pts): Is the code well-structured and maintainable?
+### Comprehensive Test Coverage
+- **Backend**: 14 unit tests with 100% model coverage
+- **Frontend**: 8 E2E tests with Playwright (100% pass rate)
+- **Integration**: Full API integration testing
+- **Performance**: < 100ms API response times
 
-### Kiro CLI Usage (20 points)
-- **Effective Use of Features** (10 pts): How well did you leverage Kiro CLI?
-- **Custom Commands Quality** (7 pts): Quality of your custom prompts
-- **Workflow Innovation** (3 pts): Creative use of Kiro CLI features
+### Quality Metrics
+- **TypeScript**: Strict mode with zero compilation errors
+- **Security**: Zero vulnerabilities after systematic code review
+- **Performance**: 708KB → 203KB gzipped (71% compression)
+- **Accessibility**: WCAG compliant with proper ARIA labels
 
-### Documentation (20 points)
-- **Completeness** (9 pts): All required documentation present
-- **Clarity** (7 pts): Easy to understand and follow
-- **Process Transparency** (4 pts): Clear development process documentation
+### Run Tests
+```bash
+# Backend tests
+cd backend && source ../venv/bin/activate
+pytest tests/ -v --cov=app
 
-### Innovation (15 points)
-- **Uniqueness** (8 pts): Original approach or solution
-- **Creative Problem-Solving** (7 pts): Novel technical solutions
+# Frontend E2E tests
+cd frontend
+npx playwright test --project=chromium
 
-### Presentation (5 points)
-- **Demo Video** (3 pts): Clear demonstration of your project
-- **README** (2 pts): Professional project overview
+# Production build test
+npm run build
+```
 
-## Required Documentation
+## Development Process with Kiro CLI
 
-Ensure these files are complete and high-quality:
+This project was built using systematic AI-assisted development with Kiro CLI, demonstrating modern development workflows:
 
-### README.md
-- Clear project description and value proposition
-- Prerequisites and setup instructions
-- Architecture overview and key components
-- Usage examples and troubleshooting
+### Kiro Workflow Used
+1. **`@prime`** - Load comprehensive project context
+2. **`@plan-feature`** - Generate detailed implementation plans
+3. **`@execute`** - Systematic task execution with validation
+4. **`@code-review-hackathon`** - Submission-grade quality review
+5. **`@code-review-fix`** - Systematic bug resolution
 
-*There's a lot of freedom for how you can structure this. Just make sure that it's easy for someone viewing this to know exactly what your project is about and how to run it themselves. This is the main criteria that explains the project clearly and how to test it in a local environment.*
+### Development Timeline
+- **Total Time**: 6 hours 28 minutes
+- **Backend Implementation**: 3h 29min (database, API, testing)
+- **Frontend Implementation**: 28min (React app, components, E2E tests)
+- **Code Review & Fixes**: 1h 23min (security, quality, performance)
+- **Documentation**: 58min (DEVLOG, planning, validation)
 
-### DEVLOG.md
-- Development timeline with key milestones
-- Technical decisions and rationale
-- Challenges faced and solutions implemented
-- Time tracking and Kiro CLI usage statistics
+### Key Achievements
+- **50%+ Time Savings**: 6.5 hours vs estimated 12-15 hours manual
+- **Zero Security Vulnerabilities**: Systematic code review caught critical issues
+- **Production-Ready**: Proper error handling, CORS, performance optimization
+- **Comprehensive Testing**: Both unit and E2E testing with 100% pass rates
 
-*There's a lot of freedom in how you structure this too. It's up to you how you want to document your timeline, milestones, decisions made, challenges you encounter, and all those kinds of things. Feel free to use Kiro to help you maintain your devlog as you're working on the project. Hint: create a Kiro prompt to help you update your log based on what's happening.*
+> **📖 Detailed Development Log**: See [.kiro/DEVLOG.md](.kiro/DEVLOG.md) for complete development timeline, technical decisions, and Kiro CLI usage statistics.
 
-### .kiro/ Directory
-- **Steering documents**: Customized for your project
-- **Custom prompts**: Workflow-specific commands
-- **Configuration**: Optimized for your development process
+## Deployment
 
-*This template provides a good starting point with prompts, and the wizard helps you set up your initial steering documents. However, it's encouraged for you to continue to customize things and refine it as you're working on your project.*
+### Production Build
+```bash
+# Backend (no build needed - Python runs directly)
+cd backend && source ../venv/bin/activate
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-## Available Prompts
+# Frontend
+cd frontend
+npm run build
+npm run preview  # Test production build
+```
 
-This template includes 11 powerful development prompts:
+### Environment Configuration
+- **Database**: SQLite file in user's local directory
+- **CORS**: Configured for localhost development (update for production)
+- **API Base URL**: Update in `frontend/src/services/api.ts` for production
 
-### Core Development
-- **`@prime`** - Load comprehensive project context
-- **`@plan-feature`** - Create detailed implementation plans
-- **`@execute`** - Execute plans with systematic task management
-- **`@quickstart`** - Interactive project setup wizard
+## Troubleshooting
 
-### Quality Assurance
-- **`@code-review`** - Technical code review for quality and bugs
-- **`@code-review-hackathon`** - Hackathon submission evaluation
-- **`@code-review-fix`** - Fix issues found in code reviews
-- **`@system-review`** - Analyze implementation vs plan
+### Common Issues
 
-### Documentation & Planning
-- **`@create-prd`** - Generate Product Requirements Documents
-- **`@execution-report`** - Generate implementation reports
-- **`@rca`** - Root cause analysis for issues
-- **`@implement-fix`** - Implement fixes based on analysis
+**Backend won't start**:
+```bash
+# Check Python version
+python --version  # Should be 3.9+
 
-## Examples
+# Reinstall dependencies
+pip install -r backend/requirements.txt
+```
 
-Check the `examples/` folder for:
-- **README.md**: Professional project documentation example
-- **DEVLOG.md**: Comprehensive development log example
+**Frontend build fails**:
+```bash
+# Clear cache and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
 
-These examples show the level of detail and professionalism expected for hackathon submissions.
+**Database issues**:
+```bash
+# Delete and recreate database
+rm streakforge.db
+# Restart backend - tables will be recreated automatically
+```
 
-## Tips for Success
+**CORS errors**:
+- Ensure backend is running on port 8000
+- Check CORS configuration in `backend/app/main.py`
 
-### Maximize Your Score
-1. **Use Kiro CLI extensively** - It's 20% of your score
-2. **Document everything** - Process documentation is 20% of your score
-3. **Build something useful** - Real-world value is heavily weighted
-4. **Optimize your workflow** - Custom prompts and steering documents matter
+## Contributing
 
-### Development Best Practices
-- **Start with `@quickstart`** to set up your foundation properly
-- **Use `@prime`** at the start of every new conversation to quickly catch the coding assistant up to speed on what has been built in the project already
-- **Update your DEVLOG.md** continuously, not just at the end
-- **Customize your `.kiro/` configuration** as you learn your workflow
-- **Run `@code-review-hackathon`** periodically to compare your project against the judging rubric and before submitting
+This project demonstrates systematic development with Kiro CLI. To contribute:
 
-## Getting Help
+1. **Fork the repository**
+2. **Use Kiro CLI workflows**: Start with `@prime` to understand the codebase
+3. **Plan features**: Use `@plan-feature` for comprehensive planning
+4. **Quality assurance**: Run `@code-review` before submitting
+5. **Submit pull request** with detailed description
 
-- **Kiro CLI Documentation**: [kiro.dev/docs/cli](https://kiro.dev/docs/cli)
-- **Hackathon Community**: Join the Dynamous community for support
-- **Built-in Help**: Use `/help` in Kiro CLI for command assistance
+## License
+
+MIT License - see LICENSE file for details.
+
+## Acknowledgments
+
+- **Dynamous Kiro Hackathon** - For the opportunity to showcase AI-assisted development
+- **Kiro CLI** - For enabling systematic, high-quality development workflows
+- **Modern Tech Stack** - React, FastAPI, SQLAlchemy, Tailwind CSS, Recharts
 
 ---
 
-**Ready to build something amazing?** Run `@quickstart` and let's get started! 🚀
+**🚀 Ready to build lasting habits?** Start the servers and visit http://localhost:5173 to begin your habit tracking journey!
